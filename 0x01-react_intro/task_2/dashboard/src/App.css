@@ -34,3 +34,8 @@
   display: flex;
   justify-content: center;
 }
+
+input ~ label,
+button {
+  margin-left: 1rem;
+}
