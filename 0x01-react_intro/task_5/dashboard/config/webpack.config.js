@@ -3,9 +3,7 @@ const path = require('path')
 
 module.exports = {
     mode: 'development',
-    entry: {
-        main: path.resolve(__dirname, './src/index.js'),
-    },
+    entry: './src/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
@@ -29,13 +27,21 @@ module.exports = {
                     },
                 ],
             },
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                },
+            },
         ],
     },
     devServer: {
-        static: path.join(__dirname, './dist'),
+        static: path.join(__dirname, '../dist'),
         open: true,
         compress: true,
-        port: 8564,
+        hot: true,
+        liveReload: true,
     },
     devtool: 'inline-source-map',
 }
