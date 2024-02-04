@@ -1,0 +1,7 @@
+/* App-footer */
+.App-footer {
+    font-style: italic;
+    border-top: 3px solid var(--primary-color);
+    display: flex;
+    justify-content: center;
+}
