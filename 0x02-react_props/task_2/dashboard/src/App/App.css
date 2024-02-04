@@ -1,0 +1,41 @@
+.App {
+  font-size: 16px;
+  --primary-color: #e0354b;
+}
+
+/* App-Header */
+.App-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.App-header img {
+  width: 150px;
+  height: 150px;
+}
+
+.App-header h1 {
+  color: var(--primary-color);
+}
+
+
+/* App-body */
+.App-body {
+  padding: 3rem;
+  height: 47vh;
+}
+
+
+/* App-footer */
+.App-footer {
+  font-style: italic;
+  border-top: 3px solid var(--primary-color);
+  display: flex;
+  justify-content: center;
+}
+
+input ~ label,
+button {
+  margin-left: 1rem;
+}
