@@ -1,0 +1,14 @@
+/* App-Header */
+.App-header {
+    display: flex;
+    align-items: center;
+}
+
+.App-header img {
+    width: 150px;
+    height: 150px;
+}
+
+.App-header h1 {
+    color: var(--primary-color);
+}
