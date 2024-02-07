@@ -1,15 +1,12 @@
-/* App-Header */
 .App-header {
-    display: flex;
-    align-items: center;
-    border-bottom: 3px solid var(--primary-color);
+  font-size: 1.4rem;
+  color: #e0354b;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #e0354b;
 }
 
 .App-header img {
-    width: 150px;
-    height: 150px;
-}
-
-.App-header h1 {
-    color: var(--primary-color);
+  width: 200px;
+  height: 200px;
 }

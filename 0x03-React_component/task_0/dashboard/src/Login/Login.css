@@ -1,11 +1,9 @@
-input ~ label,
-button {
-    margin-left: 1rem;
+.App-body {
+  font-size: 1rem;
+  padding: 2em;
+  height: 45%;
 }
 
-
-/* App-body */
-.App-body {
-    padding: 3rem;
-    height: 47vh;
+form input {
+  margin: 10px;
 }
