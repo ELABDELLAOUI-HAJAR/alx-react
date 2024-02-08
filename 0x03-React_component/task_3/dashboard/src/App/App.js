@@ -52,8 +52,18 @@ class App extends Component {
           <Header />
           <div className='App-body'>
             {
-              isLoggedIn ? <CourseList listCourses={ this.listCourses } /> : <Login />
+              isLoggedIn ?
+                <BodySectionWithMarginBottom title={ "Course list" }>
+                  <CourseList listCourses={ this.listCourses } />
+                </BodySectionWithMarginBottom>
+                :
+                <BodySectionWithMarginBottom title={ "Log in to continue" }>
+                  <Login />
+                </BodySectionWithMarginBottom>
             }
+            <BodySection title={ "News from the School" }>
+              <p>Some texts</p>
+            </BodySection>
           </div>
           <Footer />
         </div>
