@@ -15,6 +15,7 @@ class BodySection extends Component {
 
 BodySection.propTypes = {
     title: PropTypes.string,
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 };
 
 export default BodySection;
