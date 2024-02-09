@@ -82,6 +82,32 @@ describe('Tests for Notifications component', () => {
         expect(itemText.includes('Here is the list of notifications')).toBe(false);
         expect(itemText.includes('No new notification for now')).toBe(true);
     });
+
+    it('Does not re-render when updating the props of the component with the same list', () => {
+        const wrapper = shallow(
+            <Notifications displayDrawer={ true } listNotifications={ listNotifications } />
+        );
+        const instance = wrapper.instance();
+
+        expect(instance.shouldComponentUpdate(listNotifications)).toBe(false);
+    });
+    it('Render when updating the props of the component with a longer list', () => {
+        const wrapper = shallow(
+            <Notifications displayDrawer={ true } listNotifications={ listNotifications } />
+        );
+
+        const instance = wrapper.instance();
+
+        const newListNotifs = [
+            { id: 1, type: "default", value: "New course available" },
+            { id: 2, type: "urgent", value: "New resume available" },
+            { id: 3, type: "default", html: getLatestNotification() },
+            { id: 4, type: "default", value: "check update" },
+            { id: 5, type: "urgent", value: "last one" },
+        ];
+
+        expect(instance.shouldComponentUpdate(newListNotifs)).toBe(true);
+    });
 });
 
 describe("onClick event should work", () => {
