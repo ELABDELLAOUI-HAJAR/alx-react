@@ -20,6 +20,10 @@ class Notifications extends Component {
         console.log(`Notification ${id} has been marked as read`);
     }
 
+    shouldComponentUpdate (nextProps) {
+        return nextProps.length > this.props.listNotifications.length;
+    }
+
     render () {
         return (
             <>
