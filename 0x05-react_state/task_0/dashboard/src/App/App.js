@@ -42,13 +42,13 @@ class App extends Component {
     this.setState({
       displayDrawer: true
     });
-  };
+  }
 
   handleHideDrawer () {
     this.setState({
       displayDrawer: false
     });
-  };
+  }
 
   componentDidMount () {
     document.addEventListener('keydown', this.handleKeyDown);
