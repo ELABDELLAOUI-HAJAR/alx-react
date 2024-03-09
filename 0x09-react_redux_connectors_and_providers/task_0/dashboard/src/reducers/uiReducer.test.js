@@ -1,6 +1,6 @@
 import * as uiActions from '../actions/uiActionCreators';
 import * as courseActions from '../actions/courseActionCreators';
-import { initialState, uiReducer } from './uiReducer';
+import uiReducer, { initialState } from './uiReducer';
 
 describe('Tests for uiReducer', () => {
   it('Verify that the uiReducer returns the initial state when no action is passed', () => {

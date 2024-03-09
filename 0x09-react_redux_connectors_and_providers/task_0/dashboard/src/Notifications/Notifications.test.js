@@ -7,6 +7,11 @@ import { shallow, mount } from 'enzyme';
 import Notifications from './Notifications';
 import { getLatestNotification } from '../utils/utils';
 import { StyleSheetTestUtils } from 'aphrodite';
+import util from 'util';
+
+Object.defineProperty(global, 'TextEncoder', {
+    value: util.TextEncoder,
+});
 
 StyleSheetTestUtils.suppressStyleInjection();
 

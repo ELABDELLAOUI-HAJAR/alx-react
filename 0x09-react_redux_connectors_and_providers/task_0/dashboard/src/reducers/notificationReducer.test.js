@@ -1,7 +1,7 @@
 import { markAsAread, setNotificationFilter } from '../actions/notificationActionCreators';
 import * as notifActions from '../actions/notificationActionTypes';
 import { notificationsNormalizer } from '../schema/notifications';
-import { initialState, notificationReducer } from './notificationReducer';
+import notificationReducer, { initialState } from './notificationReducer';
 import { fromJS } from 'immutable';
 
 describe('Tests for notificationReducer', () => {

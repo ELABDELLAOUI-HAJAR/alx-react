@@ -1,6 +1,6 @@
 import * as notifActions from '../actions/notificationActionTypes';
 import { filterTypeSelected, getNotifications, getUnreadNotifications } from './notificationSelector';
-import { initialState, notificationReducer } from '../reducers/notificationReducer';
+import notificationReducer, { initialState } from '../reducers/notificationReducer';
 import { notificationsNormalizer } from '../schema/notifications';
 import { fromJS } from 'immutable';
 

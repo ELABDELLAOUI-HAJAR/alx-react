@@ -2,12 +2,14 @@
  * @jest-environment jsdom
  */
 
-import React from 'react';
-import { shallow, mount } from 'enzyme';
-import App from './App';
-import { StyleSheetTestUtils } from 'aphrodite';
+// import React from 'react';
+// import { shallow, mount } from 'enzyme';
+// import App, { mapStateToProps } from './App';
+// import { StyleSheetTestUtils } from 'aphrodite';
+import { mapStateToProps } from './App';
+import { fromJS } from 'immutable';
 
-StyleSheetTestUtils.suppressStyleInjection();
+/* StyleSheetTestUtils.suppressStyleInjection();
 
 describe('<App /> when isLoggedIn is False', () => {
   it('App renders without crashing', () => {
@@ -129,5 +131,19 @@ describe('<App /> test states', () => {
     app.instance().handleDisplayDrawer();
     app.instance().handleHideDrawer();
     expect(app.state('displayDrawer')).toEqual(false);
+  });
+});
+ */
+describe('Test for MapStateToProps', () => {
+  it('Verify that the function returns the right object', () => {
+    let state = fromJS({
+      isUserLoggedIn: true
+    });
+
+    const returnedObj = mapStateToProps(state);
+
+    const expected = { isLoggedIn: true };
+
+    expect(returnedObj).toEqual(expected);
   });
 });

@@ -1,7 +1,7 @@
 import { selectCourse, unSelectCourse } from "../actions/courseActionCreators";
 import { FETCH_COURSE_SUCCESS } from "../actions/courseActionTypes";
 import { coursesNormalizer } from "../schema/courses";
-import { courseReducer, initialState } from "./courseReducer";
+import courseReducer, { initialState } from "./courseReducer";
 import { fromJS } from 'immutable';
 
 
