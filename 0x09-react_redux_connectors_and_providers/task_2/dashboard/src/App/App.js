@@ -11,10 +11,7 @@ import { StyleSheet, css } from 'aphrodite';
 import AppContext, { defaultUser } from './AppContext';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-  displayNotificationDrawer
-  , hideNotificationDrawer
-} from '../actions/uiActionCreators';
+import * as uiActions from '../actions/uiActionCreators';
 
 
 class App extends Component {
@@ -25,19 +22,14 @@ class App extends Component {
 
     this.state = {
       user: defaultUser,
-      logOut: () => {
-        this.setState({
-          user: defaultUser,
-        });
-      },
       listNotifications: [
         { id: 1, type: "default", value: "New course available" },
         { id: 2, type: "urgent", value: "New resume available" },
         { id: 3, type: "urgent", html: { __html: getLatestNotification() }, },
       ],
     };
+
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.logIn = this.logIn.bind(this);
   }
 
   listCourses = [
@@ -50,18 +42,8 @@ class App extends Component {
     if (event.ctrlKey && event.key === 'h') {
       event.preventDefault();
       alert('Logging you out');
-      this.state.logOut();
+      this.props.logOut();
     }
-  };
-
-  logIn(email, password) {
-    this.setState({
-      user: {
-        email: email,
-        password: password,
-        isLoggedIn: true,
-      },
-    });
   };
 
   markNotificationAsRead = (id) => {
@@ -81,9 +63,9 @@ class App extends Component {
 
 
   render() {
-    const { displayDrawer, handleDisplayDrawer, handleHideDrawer } = this.props;
+    const { displayDrawer, handleDisplayDrawer, handleHideDrawer, login } = this.props;
     return (
-      <AppContext.Provider value={ { user: this.state.user, logOut: this.state.logOut } }>
+      <AppContext.Provider value={ { user: this.state.user, logOut: this.props.logout } }>
         <Notifications listNotifications={ this.state.listNotifications }
           displayDrawer={ displayDrawer }
           handleHideDrawer={ handleHideDrawer }
@@ -99,7 +81,7 @@ class App extends Component {
                 </BodySectionWithMarginBottom>
                 :
                 <BodySectionWithMarginBottom title={ "Log in to continue" }>
-                  <Login logIn={ this.logIn } />
+                  <Login logIn={ login } />
                 </BodySectionWithMarginBottom>
             }
             <BodySection title={ "News from the School" }>
@@ -135,13 +117,17 @@ const styles = StyleSheet.create({
 
 App.defaultProps = {
   displayDrawer: false,
-  handleDisplayDrawer: () => dispatch(displayNotificationDrawer()),
-  handleHideDrawer: () => dispatch(hideNotificationDrawer()),
+  handleDisplayDrawer: () => dispatch(uiActions.displayNotificationDrawer()),
+  handleHideDrawer: () => dispatch(uiActions.hideNotificationDrawer()),
+  login: () => { },
+  logout: () => { },
 };
 App.propTypes = {
   displayDrawer: PropTypes.bool,
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
+  login: PropTypes.func,
+  logout: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => ({
@@ -150,8 +136,10 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  handleDisplayDrawer: () => dispatch(displayNotificationDrawer()),
-  handleHideDrawer: () => dispatch(hideNotificationDrawer()),
+  handleDisplayDrawer: () => dispatch(uiActions.displayNotificationDrawer()),
+  handleHideDrawer: () => dispatch(uiActions.hideNotificationDrawer()),
+  login: uiActions.loginRequest,
+  logout: uiActions.logout,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
