@@ -10,6 +10,11 @@ import BodySection from '../BodySection/BodySection';
 import { StyleSheet, css } from 'aphrodite';
 import AppContext, { defaultUser } from './AppContext';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import {
+  displayNotificationDrawer
+  , hideNotificationDrawer
+} from '../actions/uiActionCreators';
 
 
 class App extends Component {
@@ -19,7 +24,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      displayDrawer: false,
       user: defaultUser,
       logOut: () => {
         this.setState({
@@ -33,8 +37,6 @@ class App extends Component {
       ],
     };
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logIn = this.logIn.bind(this);
   }
 
@@ -50,18 +52,6 @@ class App extends Component {
       alert('Logging you out');
       this.state.logOut();
     }
-  };
-
-  handleDisplayDrawer() {
-    this.setState({
-      displayDrawer: true
-    });
-  };
-
-  handleHideDrawer() {
-    this.setState({
-      displayDrawer: false
-    });
   };
 
   logIn(email, password) {
@@ -91,13 +81,13 @@ class App extends Component {
 
 
   render() {
-
+    const { displayDrawer, handleDisplayDrawer, handleHideDrawer } = this.props;
     return (
       <AppContext.Provider value={ { user: this.state.user, logOut: this.state.logOut } }>
         <Notifications listNotifications={ this.state.listNotifications }
-          displayDrawer={ this.props.displayDrawer }
-          handleHideDrawer={ this.handleHideDrawer }
-          handleDisplayDrawer={ this.handleDisplayDrawer }
+          displayDrawer={ displayDrawer }
+          handleHideDrawer={ handleHideDrawer }
+          handleDisplayDrawer={ handleDisplayDrawer }
           markNotificationAsRead={ this.markNotificationAsRead } />
         <div className={ css(styles.app) }>
           <Header />
@@ -143,9 +133,25 @@ const styles = StyleSheet.create({
   }
 });
 
+App.defaultProps = {
+  displayDrawer: false,
+  handleDisplayDrawer: () => dispatch(displayNotificationDrawer()),
+  handleHideDrawer: () => dispatch(hideNotificationDrawer()),
+};
+App.propTypes = {
+  displayDrawer: PropTypes.bool,
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func,
+};
+
 export const mapStateToProps = (state) => ({
   isLoggedIn: state.get('isUserLoggedIn'),
   displayDrawer: state.get('isNotificationDrawerVisible'),
 });
 
-export default connect(mapStateToProps)(App);
+export const mapDispatchToProps = (dispatch) => ({
+  handleDisplayDrawer: () => dispatch(displayNotificationDrawer()),
+  handleHideDrawer: () => dispatch(hideNotificationDrawer()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
