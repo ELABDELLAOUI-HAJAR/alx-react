@@ -136,8 +136,8 @@ export const mapStateToProps = (state) => ({
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  handleDisplayDrawer: () => dispatch(uiActions.displayNotificationDrawer()),
-  handleHideDrawer: () => dispatch(uiActions.hideNotificationDrawer()),
+  handleDisplayDrawer: uiActions.displayNotificationDrawer,
+  handleHideDrawer: uiActions.hideNotificationDrawer,
   login: uiActions.loginRequest,
   logout: uiActions.logout,
 });

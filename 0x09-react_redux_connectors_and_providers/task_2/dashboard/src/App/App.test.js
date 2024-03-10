@@ -3,45 +3,65 @@
  */
 
 import React from 'react';
-import { mount } from 'enzyme';
-import App, { mapStateToProps, StatelessApp } from './App';
+import { shallow, mount } from 'enzyme';
+import { mapStateToProps, StatelessApp } from './App';
 import { StyleSheetTestUtils } from 'aphrodite';
 import { fromJS } from 'immutable';
 
 StyleSheetTestUtils.suppressStyleInjection();
 
-describe('<App /> when isLoggedIn is False', () => {
+describe('<App />', () => {
   let app;
   beforeEach(() => {
-    app = mount(<StatelessApp />);
-  });
-
-  afterEach(() => {
-    app.unmount();
+    app = shallow(<StatelessApp displayDrawer={ false } />);
   });
 
   it('App renders without crashing', () => {
     expect(app.exists()).toBe(true);
   });
 
-  it('App contains the Notifications component', () => {
+  it('App contain Notifications component', () => {
     expect(app.find('Notifications')).toHaveLength(1);
   });
 
-  it('App contains the Header component', () => {
+  it('App contain Header component', () => {
     expect(app.find('Header')).toHaveLength(1);
   });
 
-  it('App contains the Login component', () => {
+  it('App contain Login component', () => {
     expect(app.find('Login')).toHaveLength(1);
   });
 
-  it('App contains the Footer component', () => {
+  it('App contain Footer component', () => {
     expect(app.find('Footer')).toHaveLength(1);
   });
-
-  it('App does not contains CourseList', () => {
+  it('CourseList is not displayed', () => {
     expect(app.find('CourseList')).toHaveLength(0);
+  });
+  it('the default state for displayDrawer is false', () => {
+    const displayDrawer = app.props().children[0].props.displayDrawer;
+    expect(displayDrawer).toBe(false);
+  });
+});
+
+describe('<App /> when isLoggedIn is true', () => {
+  let app;
+  beforeEach(() => {
+    app = shallow(<StatelessApp isLoggedIn={ true } />);
+  });
+
+  it('Login is not displayed', () => {
+    expect(app.find('Login')).toHaveLength(0);
+  });
+  it('CourseList is displayed', () => {
+    expect(app.find('CourseList')).toHaveLength(1);
+  });
+  it('Verify that markNotificationAsRead works as intended', () => {
+    const notifBeforeRemove = app.state('listNotifications');
+    app.instance().markNotificationAsRead(1);
+    const notifAfterRemove = app.state('listNotifications');
+
+    expect(notifAfterRemove.length).not.toBe(notifBeforeRemove.length);
   });
 });
 
