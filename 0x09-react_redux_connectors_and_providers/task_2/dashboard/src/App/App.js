@@ -65,7 +65,7 @@ class App extends Component {
   render() {
     const { displayDrawer, handleDisplayDrawer, handleHideDrawer, login } = this.props;
     return (
-      <AppContext.Provider value={ { user: this.state.user, logOut: this.props.logout } }>
+      <AppContext.Provider value={ { user: this.state.user, logOut: this.state.logOut } }>
         <Notifications listNotifications={ this.state.listNotifications }
           displayDrawer={ displayDrawer }
           handleHideDrawer={ handleHideDrawer }
@@ -141,5 +141,7 @@ export const mapDispatchToProps = (dispatch) => ({
   login: uiActions.loginRequest,
   logout: uiActions.logout,
 });
+
+export { App as StatelessApp };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
