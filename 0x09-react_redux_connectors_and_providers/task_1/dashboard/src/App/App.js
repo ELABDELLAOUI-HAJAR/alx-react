@@ -154,4 +154,6 @@ export const mapDispatchToProps = (dispatch) => ({
   handleHideDrawer: () => dispatch(hideNotificationDrawer()),
 });
 
+export { App as StatelessApp };
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
