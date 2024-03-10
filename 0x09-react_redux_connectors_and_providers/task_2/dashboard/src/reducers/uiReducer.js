@@ -23,7 +23,10 @@ export default function uiReducer(state = initialState, action = { type: null })
       return state.set('isUserLoggedIn', false);
 
     case actions.LOGOUT:
-      return state.set('isUserLoggedIn', false);
+      return state.set('isUserLoggedIn', false).set('user', null);
+
+    case actions.LOGIN:
+      return state.set('isUserLoggedIn', true).set('user', action.user);
 
     default:
       return state;
