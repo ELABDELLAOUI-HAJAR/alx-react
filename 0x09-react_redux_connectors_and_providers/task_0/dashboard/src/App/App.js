@@ -147,4 +147,6 @@ export const mapStateToProps = (state) => ({
   isLoggedIn: state.get('isUserLoggedIn'),
 });
 
+export { App as StatelessApp };
+
 export default connect(mapStateToProps)(App);
