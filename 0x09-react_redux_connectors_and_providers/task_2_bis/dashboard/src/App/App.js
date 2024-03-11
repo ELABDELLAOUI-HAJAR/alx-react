@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
 
 App.defaultProps = {
   displayDrawer: false,
-  handleDisplayDrawer: () => dispatch(uiActions.displayNotificationDrawer()),
-  handleHideDrawer: () => dispatch(uiActions.hideNotificationDrawer()),
+  handleDisplayDrawer: () => { },
+  handleHideDrawer: () => { },
   login: () => { },
   logout: () => { },
 };
