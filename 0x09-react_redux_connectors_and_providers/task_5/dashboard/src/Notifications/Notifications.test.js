@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import { mount, shallow, render } from 'enzyme';
-import Notifications from './Notifications';
+import { shallow } from 'enzyme';
+import { StatelessNotifications } from './Notifications';
 import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
 import util from 'util';
@@ -29,7 +29,7 @@ describe('<Notifications />', () => {
 	let notifications;
 
 	beforeEach(() => {
-		notifications = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
+		notifications = shallow(<StatelessNotifications displayDrawer={ true } listNotifications={ listNotifications } />);
 		StyleSheetTestUtils.suppressStyleInjection();
 	});
 	afterEach(() => {
@@ -37,7 +37,7 @@ describe('<Notifications />', () => {
 	});
 
 	it('renders without crashing', () => {
-		const notifications = shallow(<Notifications />);
+		const notifications = shallow(<StatelessNotifications />);
 		expect(notifications.exists()).toBe(true);
 	});
 	it('renders three list items', () => {
@@ -56,7 +56,7 @@ describe('<Notifications />', () => {
 		);
 	});
 	it('menu item is being displayed when displayDrawer is false', () => {
-		const notifications = shallow(<Notifications />);
+		const notifications = shallow(<StatelessNotifications />);
 		const menuItem = notifications.find('div.menuItem');
 		expect(menuItem.exists()).toBe(true);
 	});
@@ -65,7 +65,7 @@ describe('<Notifications />', () => {
 		expect(menuItem.exists()).toBe(false);
 	});
 	it('div.Notifications is not being displayed when displayDrawer is false', () => {
-		const notifications = shallow(<Notifications displayDrawer={false} />);
+		const notifications = shallow(<StatelessNotifications displayDrawer={ false } />);
 		const notifDiv = notifications.find('div.Notifications');
 		expect(notifDiv.exists()).toBe(false);
 	});
@@ -75,8 +75,8 @@ describe('<Notifications />', () => {
 	});
 
 	it('Renders correctly when listNotifications is not passed or empty', () => {
-		shallow(<Notifications />);
-		shallow(<Notifications listNotifications={[]} />);
+		shallow(<StatelessNotifications />);
+		shallow(<StatelessNotifications listNotifications={ [] } />);
 	});
 
 	it('Renders correctly a listNotifications with the right number of NotificationItem', () => {
@@ -84,7 +84,7 @@ describe('<Notifications />', () => {
 		expect(list.length).toBe(3);
 	});
 	it('when listNotifications is empty the message Here is the list of notifications is not displayed, but No new notification for now is', () => {
-		const notifications = shallow(<Notifications displayDrawer={true} listNotifications={[]} />);
+		const notifications = shallow(<StatelessNotifications displayDrawer={ true } listNotifications={ [] } />);
 		const text = notifications.text();
 
 		expect(text.includes('Here is the list of notifications')).toBe(false);
@@ -94,7 +94,7 @@ describe('<Notifications />', () => {
 	it('clicking on the menu item calls handleDisplayDrawer', () => {
 		const handleDisplayDrawerMock = jest.fn();
 
-		const wrapper = shallow(<Notifications displayDrawer={false} handleDisplayDrawer={handleDisplayDrawerMock} />);
+		const wrapper = shallow(<StatelessNotifications displayDrawer={ false } handleDisplayDrawer={ handleDisplayDrawerMock } />);
 		const menuItem = wrapper.find('div.menuItem');
 		menuItem.simulate('click');
 
@@ -102,7 +102,7 @@ describe('<Notifications />', () => {
 	});
 	it('clicking on the button calls handleHideDrawer', () => {
 		const handleHideDrawerMock = jest.fn();
-		const wrapper = shallow(<Notifications displayDrawer={true} handleHideDrawer={handleHideDrawerMock} />);
+		const wrapper = shallow(<StatelessNotifications displayDrawer={ true } handleHideDrawer={ handleHideDrawerMock } />);
 		const closeBtn = wrapper.find('button');
 		closeBtn.simulate('click');
 

@@ -4,7 +4,6 @@ import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
-import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
 import { StyleSheet, css } from 'aphrodite/no-important';
@@ -41,27 +40,6 @@ const styles = new StyleSheet.create({
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      listNotifications: [
-        {
-          id: 0,
-          type: 'default',
-          value: 'New course available',
-        },
-        {
-          id: 1,
-          type: 'urgent',
-          value: 'New resume available',
-        },
-        {
-          id: 2,
-          type: 'urgent',
-          html: { __html: getLatestNotification() },
-        },
-      ],
-    };
-
     this.handleLogOut = this.handleLogOut.bind(this);
   }
 
@@ -81,20 +59,12 @@ class App extends Component {
     document.removeEventListener('keydown', this.handleLogOut);
   }
 
-  markNotificationAsRead = (id) => {
-    this.setState((prevState) => ({
-      listNotifications: prevState.listNotifications.filter((notif) => notif.id != id),
-    }));
-  };
 
   render() {
-    const { listNotifications } = this.state;
     const { isLoggedIn, displayDrawer, handleDisplayDrawer, handleHideDrawer, login } = this.props;
     return (
       <div className={ css(styles.app) }>
         <Notifications
-          listNotifications={ listNotifications }
-          markNotificationAsRead={ this.markNotificationAsRead }
           displayDrawer={ displayDrawer }
           handleDisplayDrawer={ handleDisplayDrawer }
           handleHideDrawer={ handleHideDrawer }

@@ -22,10 +22,10 @@ function setNotificationFilter(filter) {
 const boundMarkAsRead = (index) => dispatch(markAsRead(index));
 const boundSetNotificationFilter = (filter) => dispatch(setNotificationFilter(filter));
 
-function setLoadingState(loadingState) {
+function setLoadingState(loading) {
   return {
     type: SET_LOADING_STATE,
-    loadingState,
+    loading,
   };
 }
 
@@ -41,6 +41,7 @@ const fetchNotifications = () => (dispatch) => {
   return fetch('http://localhost:8080/notifications.json')
     .then((res) => res.json())
     .then((data) => dispatch(setNotifications(data)))
+    .catch(err => err)
     .finally(() => dispatch(setLoadingState(false)));
 };
 
