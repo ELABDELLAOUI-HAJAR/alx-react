@@ -61,13 +61,6 @@ describe('<App /> isLoggedIn true:', () => {
     const component = app.find(CourseList);
     expect(component).toHaveLength(1);
   });
-  it('verify that markNotificationAsRead works as intended', () => {
-    const notificationsBeforeRemove = app.state('listNotifications');
-    app.instance().markNotificationAsRead(0);
-    const notificationsAfterRemove = app.state('listNotifications');
-
-    expect(notificationsAfterRemove.length).not.toBe(notificationsBeforeRemove.length);
-  });
 });
 
 describe('Test mapStateToProps ', () => {

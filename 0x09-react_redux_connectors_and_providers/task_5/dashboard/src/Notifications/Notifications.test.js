@@ -108,4 +108,10 @@ describe('<Notifications />', () => {
 
 		expect(handleHideDrawerMock).toHaveBeenCalled();
 	});
+	it('Verify that the function fetchNotifications is called when the component is mounted', () => {
+		const mock = jest.fn();
+		shallow(<StatelessNotifications fetchNotifications={ mock } />);
+
+		expect(mock).toHaveBeenCalled();
+	});
 });

@@ -3,6 +3,7 @@ import {
   MARK_AS_READ,
   SET_TYPE_FILTER,
   NotificationTypeFilters,
+  SET_LOADING_STATE,
 } from '../actions/notificationActionTypes';
 import notificationReducer, { initital_state } from './notificationReducer';
 import { notificationsNormalizer } from '../schema/notifications';
@@ -23,7 +24,7 @@ describe('Test notificationReducer', () => {
     };
 
     const received_state = notificationReducer(initital_state, action);
-    const expected_state = initital_state.merge({
+    const expected_state = initital_state.mergeDeep({
       filter: NotificationTypeFilters.DEFAULT,
       notifications: notificationsNormalizer(
         action.data.map((notification) => ({
@@ -73,6 +74,26 @@ describe('Test notificationReducer', () => {
 
     const received_state = notificationReducer(initial_state, action);
     const expected_state = initial_state.set('filter', action.filter);
+
+    expect(expected_state.toJS()).toEqual(received_state.toJS());
+  });
+  it('verify that SET_LOADING_STATE updates the reducer correctly', () => {
+    const initial_state = fromJS({
+      filter: NotificationTypeFilters.DEFAULT,
+      notifications: notificationsNormalizer([
+        { id: 1, type: 'default', value: 'New course available', isRead: false },
+        { id: 2, type: 'urgent', value: 'New resume available', isRead: false },
+        { id: 3, type: 'urgent', value: 'New data available', isRead: false },
+      ]),
+      loading: false,
+    });
+    const action = {
+      type: SET_LOADING_STATE,
+      loading: true,
+    };
+
+    const received_state = notificationReducer(initial_state, action);
+    const expected_state = initial_state.set('loading', action.loading);
 
     expect(expected_state.toJS()).toEqual(received_state.toJS());
   });
