@@ -8,14 +8,21 @@ import { fromJS } from 'immutable';
 import { notificationsNormalizer } from '../schema/notifications';
 
 export const initital_state = fromJS({
-  notifications: [],
-  filter: [],
+  notifications: {
+    entities: {
+      messages: {},
+      users: {},
+      notifications: {},
+    },
+  },
+  filter: otificationTypeFilters.DEFAULT,
+  loading: false,
 });
 
 const notificationReducer = (state = initital_state, action) => {
   switch (action?.type) {
     case FETCH_NOTIFICATIONS_SUCCESS:
-      return state.merge(
+      return state.mergeDeep(
         fromJS({
           filter: NotificationTypeFilters.DEFAULT,
           notifications: notificationsNormalizer(
@@ -30,6 +37,8 @@ const notificationReducer = (state = initital_state, action) => {
       return state.setIn(['notifications', 'entities', 'notifications', action.index, 'isRead'], true);
     case SET_TYPE_FILTER:
       return state.set('filter', action.filter);
+    case SET_LOADING_STATE:
+      return state.set('loading', action.loadingState);
     default:
       return state;
   }
