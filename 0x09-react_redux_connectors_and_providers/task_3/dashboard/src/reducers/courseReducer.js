@@ -4,7 +4,7 @@ import coursesNormalizer from '../schema/courses';
 
 const initial_state = fromJS([]);
 
-export default courseReducer = (state = initial_state, action) => {
+const courseReducer = (state = initial_state, action) => {
   switch (action?.type) {
     case FETCH_COURSE_SUCCESS:
       return state.merge(
@@ -23,3 +23,5 @@ export default courseReducer = (state = initial_state, action) => {
       return state;
   }
 };
+
+export default courseReducer;

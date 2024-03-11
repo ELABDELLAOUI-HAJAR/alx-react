@@ -12,7 +12,7 @@ export const initital_state = fromJS({
   filter: [],
 });
 
-export default notificationReducer = (state = initital_state, action) => {
+const notificationReducer = (state = initital_state, action) => {
   switch (action?.type) {
     case FETCH_NOTIFICATIONS_SUCCESS:
       return state.merge(
@@ -34,3 +34,5 @@ export default notificationReducer = (state = initital_state, action) => {
       return state;
   }
 };
+
+export default notificationReducer;
