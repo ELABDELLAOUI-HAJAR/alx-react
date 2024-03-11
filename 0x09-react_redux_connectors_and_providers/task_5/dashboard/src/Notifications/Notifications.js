@@ -4,50 +4,56 @@ import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import NotificationItemShape from './NotificationItemShape';
 import { StyleSheet, css } from 'aphrodite/no-important';
+import { fetchNotifications } from '../actions/notificationActionCreators';
 
 class Notifications extends PureComponent {
+
+	componentDidMount() {
+		this.props.fetchNotifications();
+	}
+
 	render() {
 		return (
 			<>
-				{!this.props.displayDrawer ? (
+				{ !this.props.displayDrawer ? (
 					<div
-						className={['menuItem', css(styles.menuItem)].join(' ')}
-						onClick={this.props.handleDisplayDrawer}
+						className={ ['menuItem', css(styles.menuItem)].join(' ') }
+						onClick={ this.props.handleDisplayDrawer }
 					>
 						Your notifications
 					</div>
 				) : (
-					<div className={['Notifications', css(styles.notifications)].join(' ')}>
+					<div className={ ['Notifications', css(styles.notifications)].join(' ') }>
 						<button
-							className={css(styles.btn)}
+							className={ css(styles.btn) }
 							aria-label='Close'
-							onClick={this.props.handleHideDrawer}
-							style={{ float: 'right' }}
+							onClick={ this.props.handleHideDrawer }
+							style={ { float: 'right' } }
 						>
-							<img className={css(styles.closeIcon)} src={closeIcon} alt='Close notifications' />
+							<img className={ css(styles.closeIcon) } src={ closeIcon } alt='Close notifications' />
 						</button>
 
-						{this.props.listNotifications.length ? (
+						{ this.props.listNotifications.length ? (
 							<>
-								<p className={css(styles.p)}>Here is the list of notifications</p>
-								<ul className={css(styles.ul)}>
-									{this.props.listNotifications.map((notif) => (
+								<p className={ css(styles.p) }>Here is the list of notifications</p>
+								<ul className={ css(styles.ul) }>
+									{ this.props.listNotifications.map((notif) => (
 										<NotificationItem
-											key={notif.id}
-											id={notif.id}
-											type={notif.type}
-											html={notif.html}
-											value={notif.value}
-											markAsRead={this.props.markNotificationAsRead}
+											key={ notif.id }
+											id={ notif.id }
+											type={ notif.type }
+											html={ notif.html }
+											value={ notif.value }
+											markAsRead={ this.props.markNotificationAsRead }
 										/>
-									))}
+									)) }
 								</ul>
 							</>
 						) : (
 							<p>No new notification for now</p>
-						)}
+						) }
 					</div>
-				)}
+				) }
 			</>
 		);
 	}
@@ -122,9 +128,9 @@ const styles = StyleSheet.create({
 Notifications.defaultProps = {
 	displayDrawer: false,
 	listNotifications: [],
-	handleDisplayDrawer: () => {},
-	handleHideDrawer: () => {},
-	markNotificationAsRead: () => {},
+	handleDisplayDrawer: () => { },
+	handleHideDrawer: () => { },
+	markNotificationAsRead: () => { },
 };
 Notifications.propTypes = {
 	displayDrawer: PropTypes.bool,
@@ -134,4 +140,12 @@ Notifications.propTypes = {
 	markNotificationAsRead: PropTypes.func,
 };
 
-export default Notifications;
+export const mapStateToProps = (state) => ({
+	listNotifications: Object.values(state.notifications.getIn(['notifications', 'entities', 'messages']).toJS()),
+});
+
+export const mapDispatchToProps = () => ({
+	fetchNotifications,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
