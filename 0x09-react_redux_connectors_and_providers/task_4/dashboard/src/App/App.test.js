@@ -17,7 +17,7 @@ StyleSheetTestUtils.suppressStyleInjection();
 describe('<App />', () => {
   let app;
   beforeEach(() => {
-    app = shallow(<StatelessApp displayDrawer={false} />);
+    app = shallow(<StatelessApp displayDrawer={ false } />);
   });
   it('App renders without crashing', () => {
     expect(app.exists()).toBe(true);
@@ -51,7 +51,7 @@ describe('<App />', () => {
 describe('<App /> isLoggedIn true:', () => {
   let app;
   beforeEach(() => {
-    app = shallow(<StatelessApp isLoggedIn={true} />);
+    app = shallow(<StatelessApp isLoggedIn={ true } />);
   });
   it('Login is not displayed', () => {
     const component = app.find(Login);
@@ -72,10 +72,12 @@ describe('<App /> isLoggedIn true:', () => {
 
 describe('Test mapStateToProps ', () => {
   it('verify that the function returns the right object', () => {
-    let state = fromJS({
-      isUserLoggedIn: true,
-      isNotificationDrawerVisible: false,
-    });
+    let state = {
+      ui: fromJS({
+        isUserLoggedIn: true,
+        isNotificationDrawerVisible: false,
+      })
+    };
     expect(mapStateToProps(state)).toEqual({
       isLoggedIn: true,
       displayDrawer: false,
