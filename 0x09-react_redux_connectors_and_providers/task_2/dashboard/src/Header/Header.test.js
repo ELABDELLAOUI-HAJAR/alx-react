@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { StatelessHeader } from './Header';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 import { StyleSheetTestUtils } from 'aphrodite';
 
@@ -18,11 +18,7 @@ describe('<Header /', () => {
       password: '',
     };
 
-    header = mount(<StatelessHeader user={ user } />);
-  });
-
-  afterEach(() => {
-    header.unmount();
+    header = shallow(<StatelessHeader user={ user } />);
   });
 
   it('Header renders without crashing', () => {

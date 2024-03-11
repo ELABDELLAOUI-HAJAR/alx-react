@@ -8,20 +8,16 @@ import { getLatestNotification } from '../utils/utils';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import BodySection from '../BodySection/BodySection';
 import { StyleSheet, css } from 'aphrodite';
-import AppContext, { defaultUser } from './AppContext';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import * as uiActions from '../actions/uiActionCreators';
 
 
 class App extends Component {
-  static contextType = AppContext;
-
   constructor(props) {
     super(props);
 
     this.state = {
-      user: defaultUser,
       listNotifications: [
         { id: 1, type: "default", value: "New course available" },
         { id: 2, type: "urgent", value: "New resume available" },
@@ -63,9 +59,9 @@ class App extends Component {
 
 
   render() {
-    const { displayDrawer, handleDisplayDrawer, handleHideDrawer, login } = this.props;
+    const { isLoggedIn, displayDrawer, handleDisplayDrawer, handleHideDrawer, login } = this.props;
     return (
-      <AppContext.Provider value={ { user: this.state.user, logOut: this.state.logOut } }>
+      <>
         <Notifications listNotifications={ this.state.listNotifications }
           displayDrawer={ displayDrawer }
           handleHideDrawer={ handleHideDrawer }
@@ -75,7 +71,7 @@ class App extends Component {
           <Header />
           <div className={ css(styles.app_body) }>
             {
-              this.state.user.isLoggedIn ?
+              isLoggedIn ?
                 <BodySectionWithMarginBottom title={ "Course list" }>
                   <CourseList listCourses={ this.listCourses } />
                 </BodySectionWithMarginBottom>
@@ -90,7 +86,7 @@ class App extends Component {
           </div>
           <Footer className={ css(styles.footer) } />
         </div>
-      </AppContext.Provider>
+      </>
     );
   }
 

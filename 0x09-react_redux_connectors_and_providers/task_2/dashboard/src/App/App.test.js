@@ -3,17 +3,22 @@
  */
 
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { mapStateToProps, StatelessApp } from './App';
 import { StyleSheetTestUtils } from 'aphrodite';
 import { fromJS } from 'immutable';
+import Header from '../Header/Header';
+import Notifications from '../Notifications/Notifications';
+import Login from '../Login/Login';
+import Footer from '../Footer/Footer';
+import CourseList from '../CourseList/CourseList';
 
 StyleSheetTestUtils.suppressStyleInjection();
 
-describe('<App />', () => {
+describe('<App /> when isLoggedIn is false', () => {
   let app;
   beforeEach(() => {
-    app = shallow(<StatelessApp displayDrawer={ false } />);
+    app = shallow(<StatelessApp isLoggedIn={ false } />);
   });
 
   it('App renders without crashing', () => {
@@ -21,22 +26,22 @@ describe('<App />', () => {
   });
 
   it('App contain Notifications component', () => {
-    expect(app.find('Notifications')).toHaveLength(1);
+    expect(app.find(Notifications)).toHaveLength(1);
   });
 
   it('App contain Header component', () => {
-    expect(app.find('Header')).toHaveLength(1);
+    expect(app.find(Header)).toHaveLength(1);
   });
 
   it('App contain Login component', () => {
-    expect(app.find('Login')).toHaveLength(1);
+    expect(app.find(Login)).toHaveLength(1);
   });
 
   it('App contain Footer component', () => {
-    expect(app.find('Footer')).toHaveLength(1);
+    expect(app.find(Footer)).toHaveLength(1);
   });
   it('CourseList is not displayed', () => {
-    expect(app.find('CourseList')).toHaveLength(0);
+    expect(app.find(CourseList)).toHaveLength(0);
   });
   it('the default state for displayDrawer is false', () => {
     const displayDrawer = app.props().children[0].props.displayDrawer;
@@ -51,10 +56,10 @@ describe('<App /> when isLoggedIn is true', () => {
   });
 
   it('Login is not displayed', () => {
-    expect(app.find('Login')).toHaveLength(0);
+    expect(app.find(Login)).toHaveLength(0);
   });
   it('CourseList is displayed', () => {
-    expect(app.find('CourseList')).toHaveLength(1);
+    expect(app.find(CourseList)).toHaveLength(1);
   });
   it('Verify that markNotificationAsRead works as intended', () => {
     const notifBeforeRemove = app.state('listNotifications');

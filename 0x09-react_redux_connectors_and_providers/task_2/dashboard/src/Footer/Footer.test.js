@@ -4,9 +4,8 @@
 
 import { StatelessFooter } from './Footer';
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { StyleSheetTestUtils } from 'aphrodite';
-import AppContext from '../App/AppContext';
 
 StyleSheetTestUtils.suppressStyleInjection();
 
@@ -18,11 +17,7 @@ describe('<Footer />', () => {
       email: 'hajar@alx.fr',
       password: 'HEA123',
     };
-    footer = mount(<StatelessFooter user={ user } />);
-  });
-
-  afterEach(() => {
-    footer.unmount();
+    footer = shallow(<StatelessFooter user={ user } />);
   });
 
   it('Footer render without crashing', () => {
@@ -40,7 +35,7 @@ describe('<Footer />', () => {
       password: 'HEA123',
       isLoggedIn: true,
     };
-    footer = mount(<StatelessFooter user={ user } />);
+    footer = shallow(<StatelessFooter user={ user } />);
     expect(footer.find('a').exists()).toBe(true);
   });
 });
