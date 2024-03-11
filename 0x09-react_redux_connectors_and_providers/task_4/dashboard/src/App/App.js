@@ -91,25 +91,25 @@ class App extends Component {
     const { listNotifications } = this.state;
     const { isLoggedIn, displayDrawer, handleDisplayDrawer, handleHideDrawer, login } = this.props;
     return (
-      <div className={css(styles.app)}>
+      <div className={ css(styles.app) }>
         <Notifications
-          listNotifications={listNotifications}
-          markNotificationAsRead={this.markNotificationAsRead}
-          displayDrawer={displayDrawer}
-          handleDisplayDrawer={handleDisplayDrawer}
-          handleHideDrawer={handleHideDrawer}
+          listNotifications={ listNotifications }
+          markNotificationAsRead={ this.markNotificationAsRead }
+          displayDrawer={ displayDrawer }
+          handleDisplayDrawer={ handleDisplayDrawer }
+          handleHideDrawer={ handleHideDrawer }
         />
         <Header />
-        <div className={css(styles.app_body)}>
-          {isLoggedIn ? (
+        <div className={ css(styles.app_body) }>
+          { isLoggedIn ? (
             <BodySectionWithMarginBottom title='Course list'>
-              <CourseList listCourses={listCourses} />
+              <CourseList listCourses={ listCourses } />
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title='Log in to continue'>
-              <Login logIn={login} />
+              <Login logIn={ login } />
             </BodySectionWithMarginBottom>
-          )}
+          ) }
           <BodySection title='News from the School'>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus blandit enim varius cursus luctus. Proin
@@ -119,7 +119,7 @@ class App extends Component {
             </p>
           </BodySection>
         </div>
-        <Footer className={css(styles.footer)} />
+        <Footer className={ css(styles.footer) } />
       </div>
     );
   }
@@ -128,10 +128,10 @@ class App extends Component {
 App.defaultProps = {
   isLoggedIn: false,
   displayDrawer: false,
-  handleDisplayDrawer: () => {},
-  handleHideDrawer: () => {},
-  login: () => {},
-  logout: () => {},
+  handleDisplayDrawer: () => { },
+  handleHideDrawer: () => { },
+  login: () => { },
+  logout: () => { },
 };
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
@@ -143,8 +143,8 @@ App.propTypes = {
 };
 
 export const mapStateToProps = (state) => ({
-  isLoggedIn: state.get('isUserLoggedIn'),
-  displayDrawer: state.get('isNotificationDrawerVisible'),
+  isLoggedIn: state.ui.get('isUserLoggedIn'),
+  displayDrawer: state.ui.get('isNotificationDrawerVisible'),
 });
 
 export const mapDispatchToProps = {

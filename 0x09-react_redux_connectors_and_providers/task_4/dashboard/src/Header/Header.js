@@ -11,21 +11,21 @@ class Header extends Component {
 
     return (
       <>
-        <div className={css(styles.header)}>
-          <img className={css(styles.logo)} src={logo} alt='Holberton logo' />
-          <h1 className={css(styles.heading)}>School dashboard</h1>
+        <div className={ css(styles.header) }>
+          <img className={ css(styles.logo) } src={ logo } alt='Holberton logo' />
+          <h1 className={ css(styles.heading) }>School dashboard</h1>
         </div>
-        {user?.email ? (
+        { user?.email ? (
           <section id='logoutSection'>
             <p>
-              Welcome {user.email} (
-              <a href='#' id='logOut' onClick={logout}>
+              Welcome { user.email } (
+              <a href='#' id='logOut' onClick={ logout }>
                 logout
               </a>
               )
             </p>
           </section>
-        ) : null}
+        ) : null }
       </>
     );
   }
@@ -53,7 +53,7 @@ Header.propTypes = {
 };
 
 export const mapStateToProps = (state) => ({
-  user: state.get('user'),
+  user: state.ui.get('user'),
 });
 
 export const mapDispatchToProps = {

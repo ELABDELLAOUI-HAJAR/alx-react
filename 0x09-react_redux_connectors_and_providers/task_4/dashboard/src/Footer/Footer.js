@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 
 function Footer({ className, user }) {
   return (
-    <div className={className}>
+    <div className={ className }>
       <p>
-        Copyright {getFullYear()} - {getFooterCopy(true)}
+        Copyright { getFullYear() } - { getFooterCopy(true) }
       </p>
-      {user?.email ? (
+      { user?.email ? (
         <p>
           <a href='#'>Contact us</a>
         </p>
-      ) : null}
+      ) : null }
     </div>
   );
 }
@@ -28,7 +28,7 @@ Footer.propTypes = {
 };
 
 export const mapStateToProps = (state) => ({
-  user: state.get('user'),
+  user: state.ui.get('user'),
 });
 
 export { Footer as StatelessFooter };
