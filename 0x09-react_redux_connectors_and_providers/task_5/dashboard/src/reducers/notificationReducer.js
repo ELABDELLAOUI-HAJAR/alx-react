@@ -25,7 +25,6 @@ const notificationReducer = (state = initital_state, action) => {
     case FETCH_NOTIFICATIONS_SUCCESS:
       return state.mergeDeep(
         fromJS({
-          filter: NotificationTypeFilters.DEFAULT,
           notifications: notificationsNormalizer(
             action.data.map((notification) => ({
               ...notification,

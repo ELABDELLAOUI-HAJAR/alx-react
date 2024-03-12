@@ -23,6 +23,7 @@ const boundMarkAsRead = (index) => dispatch(markAsRead(index));
 const boundSetNotificationFilter = (filter) => dispatch(setNotificationFilter(filter));
 
 function setLoadingState(loading) {
+  console.log('setLoading');
   return {
     type: SET_LOADING_STATE,
     loading,

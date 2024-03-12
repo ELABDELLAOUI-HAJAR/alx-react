@@ -150,6 +150,6 @@ export const mapDispatchToProps = () => ({
 	fetchNotifications,
 });
 
-export { Notifications as StatelessNotifications }
+export { Notifications as StatelessNotifications };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
